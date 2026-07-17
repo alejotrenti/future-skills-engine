@@ -1,0 +1,16 @@
+[theme]
+base = "dark"
+primaryColor = "#6C7CFF"
+backgroundColor = "#050816"
+secondaryBackgroundColor = "#0C1426"
+textColor = "#F5F7FB"
+secondaryTextColor = "#90A0BC"
+showWidgetBorder = true
+borderColor = "#24324A"
+dataframeHeaderBackgroundColor = "#0F172A"
+font = "Space Grotesk:https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+baseFontWeight = 400
+baseFontSize = 14
+headingFont = "Space Grotesk"
+headingFontWeights = [600, 500, 500, 500, 500, 500]
+headingFontSizes = ["2.4rem", "1.8rem", "1.5rem"]
