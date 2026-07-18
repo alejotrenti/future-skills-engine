@@ -10,12 +10,29 @@ PROJECT_ROOT = Path("/opt/airflow")
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.transform.gold.skill_trends import main as build_skill_trends
-from src.transform.gold.skill_growth import main as build_skill_growth
+
+# StackOverflow Gold
+from src.transform.gold.skill_trends import (
+    main as build_skill_trends
+)
+
+from src.transform.gold.skill_growth import (
+    main as build_skill_growth
+)
+
+
+# GitHub Gold
+from src.transform.gold.github_skill_momentum import (
+    build_github_skill_momentum
+)
+
+from src.transform.gold.github_topic_trends import (
+    build_github_topic_trends
+)
 
 
 default_args = {
-    "owner": "airflow",
+    "owner": "Alejo",
 }
 
 
@@ -29,15 +46,47 @@ with DAG(
     tags=["gold", "future-skills"],
 ) as dag:
 
+
+    # ==========================
+    # STACKOVERFLOW GOLD
+    # ==========================
+
     build_skill_trends_task = PythonOperator(
         task_id="build_skill_trends",
         python_callable=build_skill_trends,
     )
+
 
     build_skill_growth_task = PythonOperator(
         task_id="build_skill_growth",
         python_callable=build_skill_growth,
     )
 
-    # Orden de ejecución
+
+    # ==========================
+    # GITHUB GOLD
+    # ==========================
+
+    github_skill_momentum_task = PythonOperator(
+        task_id="build_github_skill_momentum",
+        python_callable=build_github_skill_momentum,
+    )
+
+
+    github_topic_trends_task = PythonOperator(
+        task_id="build_github_topic_trends",
+        python_callable=build_github_topic_trends,
+    )
+
+
+    # ==========================
+    # DEPENDENCIES
+    # ==========================
+
     build_skill_trends_task >> build_skill_growth_task
+
+    [
+        build_skill_trends_task,
+        github_skill_momentum_task,
+        github_topic_trends_task,
+    ]

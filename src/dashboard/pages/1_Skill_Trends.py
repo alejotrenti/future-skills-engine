@@ -92,6 +92,26 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.markdown(
+    """<div class="skill-trends-panel" style="margin-bottom:1.5rem;">
+        <div class="skill-trends-section-title">
+            📊 ¿Cómo se obtuvo este ranking?
+        </div>
+        <div class="skill-trends-section-subtitle" style="line-height:1.8;">
+            El ranking se construyó a partir de la <b>Stack Overflow Developer Survey</b>.
+            Tras procesar y normalizar el archivo CSV, se filtraron únicamente las tecnologías
+            marcadas como <b>HaveWorked</b>, es decir, aquellas con las que los desarrolladores
+            ya tienen experiencia. Luego se contabilizaron los usuarios únicos por habilidad,
+            se agruparon por categoría y se ordenaron para generar el ranking.
+            <br><br>
+            Esta misma información también sirve como base para la sección
+            <b>Skill Growth</b>, donde se combina con las respuestas
+            <b>WantToWork</b> para identificar las tecnologías con mayor potencial de crecimiento.
+        </div>
+    </div>""",
+    unsafe_allow_html=True,
+)
+
 metrics = [
     ("🧩", "Habilidades", len(df)),
     ("📚", "Categorías", df["category"].nunique()),

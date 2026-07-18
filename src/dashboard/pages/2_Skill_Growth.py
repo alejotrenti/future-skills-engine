@@ -91,9 +91,9 @@ st.markdown(
     <div class="skill-growth-page">
         <div class="skill-growth-hero">
             <span class="skill-growth-badge">
-                🚀 EVOLUCIÓN DEL ECOSISTEMA TECH
+                🚀 CRECIMIENTO Y DECRECIMIENTO DE HABILIDADES TECH
             </span>
-            <h1>Skill Growth</h1>
+            <h1>Evolución de habilidades</h1>
             <p>Explorá las tecnologías que están ganando relevancia
             y descubrí cuáles son las habilidades con mayor crecimiento
             dentro de la comunidad.</p>
@@ -103,7 +103,21 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
+st.markdown(
+    """<div class="skill-growth-panel">
+        <div class="skill-growth-section-title">
+        ¿Cómo se calcula?
+        </div>
+        <div class="skill-growth-section-subtitle" style="line-height:1.8;">
+            El <b>Growth Score</b> compara cuántos desarrolladores
+            <b>ya utilizan</b> una tecnología (<i>HaveWorked</i>)
+            con cuántos <b>quieren aprenderla</b> (<i>WantToWork</i>).
+            Un ajuste logarítmico evita favorecer únicamente a las
+            tecnologías más populares.
+        </div>
+    </div>""",
+    unsafe_allow_html=True,
+)
 
 # METRICS
 
