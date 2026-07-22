@@ -2,11 +2,45 @@
 
 ## Motor de análisis y predicción de tendencias tecnológicas
 
-**Future Skills Engine** es un proyecto de Data Engineering y Data Science orientado a identificar las tecnologías y habilidades que están ganando relevancia en el ecosistema tecnológico.
 
-El sistema integra múltiples fuentes de datos como encuestas de desarrolladores, actividad de repositorios y publicaciones científicas para construir un pipeline completo que transforma datos crudos en insights accionables sobre el futuro de las habilidades digitales.
+Future Skills Engine es una plataforma de inteligencia tecnológica diseñada para identificar las tecnologías con mayor potencial de crecimiento y relevancia futura.
 
-El proyecto implementa una arquitectura moderna de datos basada en capas **Bronze → Silver → Gold**, utilizando **Apache Airflow** para la orquestación, **PostgreSQL** como almacenamiento analítico y **Streamlit** para la visualización.
+El sistema integra múltiples fuentes de datos para obtener una visión completa del ecosistema tecnológico:
+
+* **Stack Overflow Survey:** analiza adopción, popularidad y evolución entre desarrolladores.
+* **GitHub API:** mide actividad real del ecosistema open source, comunidades y momentum de tecnologías.
+* **arXiv:** incorpora señales de investigación científica para detectar tecnologías emergentes.
+
+La arquitectura sigue un enfoque **Medallion (Bronze → Silver → Gold)**, donde los datos son extraídos, limpiados y transformados hasta generar métricas de alto nivel.
+
+A partir de las tablas Gold, el Future Skills Engine construye una capa de inteligencia que combina diferentes dimensiones:
+
+* **Adoption:** qué tan utilizada está actualmente una tecnología.
+* **Growth:** qué tan rápido está creciendo su presencia.
+* **Ecosystem:** qué tan activo y desarrollado está su ecosistema.
+* **Research:** qué nivel de innovación e investigación existe alrededor de ella.
+
+Estas señales se normalizan y combinan para generar un **Future Score**, un ranking que busca responder:
+
+> "¿Qué tecnologías tienen mayor probabilidad de ser relevantes en el futuro?"
+
+El objetivo final es pasar de un análisis descriptivo del presente a un sistema capaz de detectar tendencias emergentes y ayudar en la toma de decisiones sobre aprendizaje, inversión tecnológica y desarrollo de habilidades futuras.
+
+---
+
+Básicamente la evolución del proyecto es:
+
+```
+Datos históricos
+       ↓
+Análisis del presente
+       ↓
+Extracción de señales
+       ↓
+Modelo de scoring
+       ↓
+Predicción de tecnologías futuras
+```
 
 ---
 
