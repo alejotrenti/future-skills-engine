@@ -1,205 +1,150 @@
-/* ==========================================
-   GITHUB TOPICS - Estilos específicos
-   ========================================== */
+/* ============================
+   GITHUB TOPICS - ESTILOS NARANJA
+   ============================ */
 
-/* ---------- PÁGINA ---------- */
 .github-topics-page {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 24px 60px;
+    padding: 0.25rem 0 1rem 0;
 }
 
-/* ---------- HERO ---------- */
 .github-topics-hero {
-    padding: 60px 0 40px;
-    text-align: center;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.16), rgba(249, 115, 22, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 12px 30px rgba(2, 8, 23, 0.18);
+}
+
+.github-topics-hero h1 {
+    font-size: 2.2rem;
+    margin: 0.4rem 0 0.35rem 0;
+    letter-spacing: -0.02em;
+}
+
+.github-topics-hero p {
+    margin: 0;
+    color: rgba(245, 247, 251, 0.76);
+    line-height: 1.6;
+    max-width: 780px;
 }
 
 .github-topics-badge {
     display: inline-block;
-    padding: 6px 18px;
-    border-radius: 100px;
-    background: rgba(123, 104, 238, 0.15);
-    border: 1px solid rgba(123, 104, 238, 0.25);
-    font-size: 12px;
+    background: rgba(249, 115, 22, 0.14);
+    color: #FB923C;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
     text-transform: uppercase;
-    color: #7B68EE;
-    margin-bottom: 20px;
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    margin-bottom: 0.5rem;
 }
 
-.github-topics-hero h1 {
-    font-size: 44px;
-    font-weight: 700;
-    color: #F5F7FB;
-    margin: 0 0 16px;
-    letter-spacing: -0.5px;
-}
-
-.github-topics-hero h1 .highlight {
-    background: linear-gradient(135deg, #7B68EE, #C4B5FD);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.github-topics-hero p {
-    font-size: 18px;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.7);
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.github-topics-hero p b {
-    color: #C4B5FD;
-    -webkit-text-fill-color: #C4B5FD;
-}
-
-/* ---------- PANELES ---------- */
-.github-topics-panel {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 16px;
-    padding: 28px 32px;
-    margin-bottom: 28px;
-    backdrop-filter: blur(8px);
-}
-
-.github-topics-panel.chart-panel {
-    padding: 24px 24px 8px;
-}
-
-.github-topics-panel.table-panel {
-    padding: 24px 24px 16px;
-}
-
-.github-topics-section-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #F5F7FB;
-    margin-bottom: 4px;
-}
-
-.github-topics-section-subtitle {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.6;
-}
-
-.github-topics-section-subtitle b {
-    color: #C4B5FD;
-    -webkit-text-fill-color: #C4B5FD;
-}
-
-/* ---------- TARJETAS DE MÉTRICAS ---------- */
 .github-topics-metric-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.65rem;
     display: flex;
     align-items: center;
-    gap: 18px;
-    transition: border-color 0.2s;
-    height: 100%;
+    gap: 0.85rem;
+    box-shadow: 0 10px 22px rgba(2, 8, 23, 0.16);
+    transition: transform 180ms ease, border-color 180ms ease;
 }
 
 .github-topics-metric-card:hover {
-    border-color: rgba(123, 104, 238, 0.2);
+    transform: translateY(-2px);
+    border-color: rgba(249, 115, 22, 0.25);
 }
 
 .github-topics-metric-icon {
-    font-size: 32px;
-    line-height: 1;
-    flex-shrink: 0;
+    font-size: 1.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(249, 115, 22, 0.14);
 }
 
 .github-topics-metric-body p {
-    margin: 0;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 400;
+    margin: 0 0 0.2rem 0;
+    color: rgba(245, 247, 251, 0.7);
+    font-size: 0.86rem;
 }
 
 .github-topics-metric-body h2 {
-    margin: 2px 0 0;
-    font-size: 28px;
-    font-weight: 700;
+    margin: 0;
+    font-size: 1.15rem;
     color: #F5F7FB;
-    letter-spacing: -0.3px;
 }
 
-.github-topics-metric-body .metric-sub {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 2px;
+.github-topics-panel {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.9rem;
 }
 
-/* ---------- SELECTOR DE TOPIC ---------- */
-.github-topics-selector {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
+.github-topics-chart-panel {
+    padding: 0.6rem 0.8rem 0.2rem 0.8rem;
+    margin-bottom: 0.4rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
 }
 
-.github-topics-selector label {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    display: block;
-    margin-bottom: 6px;
+.github-topics-table-panel {
+    padding-top: 0.75rem;
+    padding-bottom: 0.85rem;
 }
 
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-    .github-topics-hero h1 {
-        font-size: 30px;
-    }
-    
-    .github-topics-hero p {
-        font-size: 16px;
-    }
-    
-    .github-topics-metric-card {
-        padding: 16px;
-    }
-    
-    .github-topics-metric-body h2 {
-        font-size: 22px;
-    }
-    
-    .github-topics-panel {
-        padding: 20px;
-    }
-    
-    .github-topics-section-title {
-        font-size: 18px;
-    }
+.github-topics-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #F5F7FB;
+    margin-bottom: 0.15rem;
 }
 
-@media (max-width: 480px) {
-    .github-topics-hero {
-        padding: 30px 0 20px;
-    }
-    
-    .github-topics-hero h1 {
-        font-size: 24px;
-    }
-    
-    .github-topics-metric-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 14px;
-    }
-    
-    .github-topics-metric-icon {
-        font-size: 24px;
-    }
-    
-    .github-topics-metric-body h2 {
-        font-size: 18px;
-    }
+.github-topics-section-subtitle {
+    font-size: 0.9rem;
+    color: rgba(245, 247, 251, 0.68);
+}
+
+div[data-testid="stPlotlyChart"] {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-top: none;
+    border-radius: 0 0 18px 18px;
+    padding: 0.25rem 0.4rem 0.6rem 0.4rem;
+}
+
+div[data-testid="stDataFrame"] {
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.07);
+    overflow: hidden;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.3);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(249, 115, 22, 0.5);
 }

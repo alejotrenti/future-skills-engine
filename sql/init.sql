@@ -137,3 +137,59 @@ CREATE TABLE IF NOT EXISTS gold.github_topic_trends (
     computed_at TIMESTAMP,
     version TEXT
 );
+
+CREATE TABLE gold.research_trends (
+
+    id SERIAL PRIMARY KEY,
+
+    technology TEXT,
+
+    unique_papers INT,
+
+    research_mentions INT,
+
+    papers_last_year INT,
+
+    papers_last_90_days INT,
+
+    category_count INT,
+
+    unique_papers_score FLOAT,
+
+    yearly_score FLOAT,
+
+    recent_score FLOAT,
+
+    diversity_score FLOAT,
+
+    research_score FLOAT,
+
+    rank INT,
+
+    computed_at TIMESTAMP,
+
+    version TEXT
+);
+
+CREATE TABLE IF NOT EXISTS gold.research_growth (
+    id SERIAL PRIMARY KEY,
+    technology VARCHAR(100) NOT NULL,
+    total_papers INTEGER DEFAULT 0,
+    papers_last_year INTEGER DEFAULT 0,
+    papers_previous_year INTEGER DEFAULT 0,
+    growth_rate DECIMAL(10, 4),
+    growth_multiplier DECIMAL(10, 2),
+    papers_last_90_days INTEGER DEFAULT 0,
+    active_months INTEGER DEFAULT 0,
+    growth_rate_score DECIMAL(10, 2),
+    recent_score DECIMAL(10, 2),
+    volume_score DECIMAL(10, 2),
+    consistency_score DECIMAL(10, 2),
+    growth_score DECIMAL(10, 2),
+    rank INTEGER,
+    computed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    version VARCHAR(20)
+);
+
+CREATE INDEX idx_growth_rank ON gold.research_growth(rank);
+CREATE INDEX idx_growth_score ON gold.research_growth(growth_score DESC);

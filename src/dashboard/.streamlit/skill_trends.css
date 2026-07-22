@@ -128,3 +128,92 @@ div[data-testid="stDataFrame"] {
     border: 1px solid rgba(255,255,255,0.07);
     overflow: hidden;
 }
+
+/* ============================
+   INSIGHT CARD
+   ============================ */
+
+.insight-card {
+    background: linear-gradient(135deg, rgba(108, 124, 255, 0.08), rgba(125, 211, 252, 0.05));
+    border: 1px solid rgba(108, 124, 255, 0.15);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.insight-card-icon {
+    font-size: 2.5rem;
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    background: rgba(108, 124, 255, 0.12);
+    border-radius: 14px;
+    flex-shrink: 0;
+}
+
+.insight-card-content {
+    flex: 1;
+}
+
+.insight-card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #F5F7FB;
+    margin-bottom: 0.3rem;
+}
+
+.insight-card-metrics {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.insight-card-metric-label {
+    color: rgba(245, 247, 251, 0.5);
+    font-size: 0.8rem;
+}
+
+.insight-card-metric-value {
+    color: #F5F7FB;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.insight-card-text {
+    color: rgba(245, 247, 251, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.insight-card-text strong {
+    color: #7DD3FC;
+}
+
+.insight-card-text .highlight {
+    color: #F5F7FB;
+}
+
+/* ============================
+   SCROLLBAR
+   ============================ */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(108, 124, 255, 0.3);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(108, 124, 255, 0.5);
+}

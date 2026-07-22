@@ -121,14 +121,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
 st.markdown(
     """<div class="github-momentum-page">
         <div class="github-momentum-hero">
             <span class="github-momentum-badge">
-                🚀 GITHUB SKILL MOMENTUM
+                🔥 DATOS DE GITHUB
             </span>
-            <h1>Popularidad y actividad de tecnologías en GitHub</h1>
+            <h1>¿Qué tecnologías tienen mayor actividad en GitHub?</h1>
             <p>
             Explorá qué tecnologías presentan mayor actividad en GitHub
             a partir del análisis de repositorios, estrellas, forks y
@@ -139,10 +138,25 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
 st.markdown(
     """<div class="github-momentum-panel">
         <div class="github-momentum-section-title">
-            📐 ¿Cómo se calcula el Momentum Score?
+            📄 ¿Qué es un repositorio en GitHub?
+        </div>
+        <div class="github-momentum-section-subtitle">
+            Un repositorio es el espacio donde se almacena el código de un proyecto en GitHub. Analizando miles de repositorios públicos podemos medir la actividad, adopción y popularidad de distintas tecnologías.
+        </div>
+    </div>""",
+    unsafe_allow_html=True
+)
+
+
+
+st.markdown(
+    """<div class="github-momentum-panel">
+        <div class="github-momentum-section-title">
+            📊 ¿Cómo se calcula el Momentum Score?
         </div>
         <div class="github-momentum-section-subtitle"
              style="line-height:1.8;">
@@ -164,6 +178,7 @@ st.markdown(
     </div>""",
     unsafe_allow_html=True,
 )
+
 
 
 # ==========================
@@ -239,7 +254,7 @@ st.write("")
 st.markdown(
     """<div class="github-momentum-panel github-momentum-chart-panel">
         <div class="github-momentum-section-title">
-            🏆 Ranking GitHub Momentum
+            🏆 Tecnologías con mayor Momentum
         </div>
         <div class="github-momentum-section-subtitle">
             Tecnologías ordenadas según su Momentum Score.
@@ -559,14 +574,14 @@ display = df.copy()
 # Renombrar columnas
 display = display.rename(columns={
     "rank": "Rank",
-    "technology": "Tecnología",
+    "technology": "Technology",
     "repo_count": "Repos",
     "total_stars": "Stars",
     "avg_stars": "Stars avg",
     "total_forks": "Forks",
     "avg_forks": "Forks avg",
-    "active_repo_count": "Activos",
-    "recent_1y_count": "Nuevos (1y)",
+    "active_repo_count": "Active",
+    "recent_1y_count": "New (1Y)",
     "stars_score": "Stars score",
     "forks_score": "Forks score",
     "repo_score": "Repos score",

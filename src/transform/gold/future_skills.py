@@ -1,0 +1,556 @@
+"""
+Build Gold layer: Future Skills Engine
+
+Construye la tabla gold.future_skills combinando:
+- Stack Overflow (skill_trends + skill_growth)
+- GitHub (github_skill_momentum)
+- Research (research_trends + research_growth)
+
+Arquitectura aprobada:
+- Stack Overflow: 35% (Adopción actual + potencial de crecimiento)
+- GitHub: 35% (Actividad en ecosistema open source)
+- Research: 30% (Volumen de investigación + aceleración)
+
+No participa: gold.github_topic_trends (representa comunidades, no tecnologías)
+"""
+
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from sqlalchemy import text
+
+from src.utils.database import engine
+from src.config.technology_mapping import (
+    normalize_technology,
+    get_category
+)
+
+
+# ==========================
+# CONFIGURACIÓN
+# ==========================
+
+VERSION = "1.0"
+SCHEMA = "gold"
+TABLE_NAME = "future_skills"
+
+
+# ==========================
+# FUNCIONES AUXILIARES
+# ==========================
+
+def normalize_score(series: pd.Series) -> pd.Series:
+    """
+    Normaliza una serie a escala 0-100 usando MinMax.
+    Maneja casos donde todos los valores son iguales.
+    """
+    series_clean = series.dropna()
+    if len(series_clean) == 0:
+        return pd.Series([np.nan] * len(series), index=series.index)
+    
+    min_val = series_clean.min()
+    max_val = series_clean.max()
+    
+    if max_val == min_val:
+        return pd.Series([50.0] * len(series), index=series.index)
+    
+    return ((series - min_val) / (max_val - min_val)) * 100
+
+
+def calculate_future_score(row: pd.Series) -> float:
+    """
+    Calcula el Future Score con pesos dinámicos.
+    
+    Pesos base:
+    - Stack Overflow: 35%
+    - GitHub: 35%
+    - Research: 30%
+    
+    Si una fuente no tiene datos, su peso se redistribuye
+    entre las fuentes que sí tienen datos.
+    """
+    # Verificar qué fuentes tienen datos
+    has_so = not pd.isna(row.get("stackoverflow_score", np.nan))
+    has_gh = not pd.isna(row.get("github_score", np.nan))
+    has_research = not pd.isna(row.get("research_score", np.nan))
+    
+    # Si no tiene ninguna fuente, retornar NaN
+    if not any([has_so, has_gh, has_research]):
+        return np.nan
+    
+    # Pesos base
+    weights = {
+        "so": 0.35,
+        "gh": 0.35,
+        "research": 0.30
+    }
+    
+    # Calcular pesos ajustados
+    total_weight = 0
+    adjusted_weights = {}
+    
+    if has_so:
+        adjusted_weights["so"] = weights["so"]
+        total_weight += weights["so"]
+    
+    if has_gh:
+        adjusted_weights["gh"] = weights["gh"]
+        total_weight += weights["gh"]
+    
+    if has_research:
+        adjusted_weights["research"] = weights["research"]
+        total_weight += weights["research"]
+    
+    # Normalizar pesos para que sumen 1
+    for key in adjusted_weights:
+        adjusted_weights[key] = adjusted_weights[key] / total_weight
+    
+    # Calcular score ponderado
+    score = 0
+    if has_so:
+        score += row["stackoverflow_score"] * adjusted_weights["so"]
+    if has_gh:
+        score += row["github_score"] * adjusted_weights["gh"]
+    if has_research:
+        score += row["research_score"] * adjusted_weights["research"]
+    
+    return score
+
+
+def get_sources_used(row: pd.Series) -> str:
+    """Retorna las fuentes disponibles como string legible."""
+    sources = []
+    if not pd.isna(row.get("stackoverflow_score", np.nan)):
+        sources.append("SO")
+    if not pd.isna(row.get("github_score", np.nan)):
+        sources.append("GitHub")
+    if not pd.isna(row.get("research_score", np.nan)):
+        sources.append("Research")
+    return ", ".join(sources) if sources else ""
+
+
+def get_score_explanation(row: pd.Series) -> str:
+    """Genera una explicación textual del score para el dashboard."""
+    parts = []
+    
+    # Stack Overflow
+    if not pd.isna(row.get("stackoverflow_score", np.nan)):
+        if row["stackoverflow_score"] > 50:
+            parts.append("strong developer adoption")
+        else:
+            parts.append("growing developer adoption")
+    
+    # GitHub
+    if not pd.isna(row.get("github_score", np.nan)):
+        if row["github_score"] > 50:
+            parts.append("active open source ecosystem")
+        else:
+            parts.append("emerging open source presence")
+    
+    # Research
+    if not pd.isna(row.get("research_score", np.nan)):
+        if row["research_score"] > 50:
+            parts.append("high research impact")
+        else:
+            parts.append("increasing research interest")
+    
+    if not parts:
+        return "Limited data available"
+    
+    return " + ".join(parts)
+
+
+# ==========================
+# FUNCIÓN PRINCIPAL
+# ==========================
+
+def build_future_skills() -> None:
+    """
+    Construye la tabla gold.future_skills.
+    """
+    
+    print("=== Future Skills Engine ===")
+    print(f"Versión: {VERSION}")
+    print(f"Timestamp: {datetime.now()}\n")
+    
+    # ==========================
+    # 1. Cargar datos de cada fuente
+    # ==========================
+    
+    print("1. Cargando datos...")
+    
+    # Stack Overflow - Trends
+    so_trends = pd.read_sql(
+        text("""
+            SELECT
+                skill,
+                category,
+                users_count
+            FROM gold.skill_trends
+        """),
+        engine
+    )
+    print(f"   SO Trends: {len(so_trends)} registros")
+    
+    # Stack Overflow - Growth
+    so_growth = pd.read_sql(
+        text("""
+            SELECT
+                skill,
+                growth_score
+            FROM gold.skill_growth
+        """),
+        engine
+    )
+    print(f"   SO Growth: {len(so_growth)} registros")
+    
+    # GitHub - Momentum
+    gh_momentum = pd.read_sql(
+        text("""
+            SELECT
+                technology,
+                momentum_score
+            FROM gold.github_skill_momentum
+        """),
+        engine
+    )
+    print(f"   GitHub Momentum: {len(gh_momentum)} registros")
+    
+    # Research - Trends
+    research_trends = pd.read_sql(
+        text("""
+            SELECT
+                technology,
+                research_score
+            FROM gold.research_trends
+        """),
+        engine
+    )
+    print(f"   Research Trends: {len(research_trends)} registros")
+    
+    # Research - Growth
+    research_growth = pd.read_sql(
+        text("""
+            SELECT
+                technology,
+                growth_score
+            FROM gold.research_growth
+        """),
+        engine
+    )
+    print(f"   Research Growth: {len(research_growth)} registros\n")
+    
+    # ==========================
+    # 2. Normalizar nombres de tecnologías
+    # ==========================
+    
+    print("2. Normalizando nombres...")
+    
+    # Stack Overflow
+    so_trends["technology"] = so_trends["skill"].apply(normalize_technology)
+    so_growth["technology"] = so_growth["skill"].apply(normalize_technology)
+    
+    # GitHub
+    gh_momentum["technology"] = gh_momentum["technology"].apply(normalize_technology)
+    
+    # Research
+    research_trends["technology"] = research_trends["technology"].apply(normalize_technology)
+    research_growth["technology"] = research_growth["technology"].apply(normalize_technology)
+    
+    print("   Normalización completada\n")
+    
+    # ==========================
+    # 3. Agrupar por tecnología (eliminar duplicados)
+    # ==========================
+    
+    print("3. Agrupando por tecnología...")
+    
+    # Stack Overflow Trends
+    so_trends = (
+        so_trends
+        .groupby("technology", as_index=False)
+        .agg({
+            "users_count": "sum",
+            "category": "first"
+        })
+    )
+    
+    # Stack Overflow Growth
+    so_growth = (
+        so_growth
+        .groupby("technology", as_index=False)
+        .agg({
+            "growth_score": "max"
+        })
+    )
+    
+    # GitHub Momentum
+    gh_momentum = (
+        gh_momentum
+        .groupby("technology", as_index=False)
+        .agg({
+            "momentum_score": "max"
+        })
+    )
+    
+    # Research Trends
+    research_trends = (
+        research_trends
+        .groupby("technology", as_index=False)
+        .agg({
+            "research_score": "max"
+        })
+    )
+    
+    # Research Growth
+    research_growth = (
+        research_growth
+        .groupby("technology", as_index=False)
+        .agg({
+            "growth_score": "max"
+        })
+    )
+    
+    print(f"   SO Trends: {len(so_trends)} tecnologías")
+    print(f"   SO Growth: {len(so_growth)} tecnologías")
+    print(f"   GitHub Momentum: {len(gh_momentum)} tecnologías")
+    print(f"   Research Trends: {len(research_trends)} tecnologías")
+    print(f"   Research Growth: {len(research_growth)} tecnologías\n")
+    
+    # ==========================
+    # 4. Unificar todas las fuentes
+    # ==========================
+    
+    print("4. Unificando fuentes...")
+    
+    # Comenzar con Stack Overflow Trends
+    future = so_trends.copy()
+    
+    # Agregar Stack Overflow Growth
+    future = future.merge(
+        so_growth[["technology", "growth_score"]],
+        on="technology",
+        how="outer"
+    )
+    
+    # Agregar GitHub Momentum
+    future = future.merge(
+        gh_momentum[["technology", "momentum_score"]],
+        on="technology",
+        how="outer"
+    )
+    
+    # Agregar Research Trends
+    future = future.merge(
+        research_trends[["technology", "research_score"]],
+        on="technology",
+        how="outer"
+    )
+    
+    # Agregar Research Growth (renombrar para evitar conflicto)
+    research_growth_renamed = research_growth.rename(
+        columns={"growth_score": "research_growth_score"}
+    )
+    future = future.merge(
+        research_growth_renamed[["technology", "research_growth_score"]],
+        on="technology",
+        how="outer"
+    )
+    
+    print(f"   Total tecnologías únicas: {len(future)}\n")
+    
+    # ==========================
+    # 5. Normalizar métricas a escala 0-100
+    # ==========================
+    
+    print("5. Normalizando métricas...")
+    
+    # Columnas a normalizar
+    metrics_to_normalize = [
+        "users_count",
+        "growth_score",
+        "momentum_score",
+        "research_score",
+        "research_growth_score"
+    ]
+    
+    # Aplicar normalización a cada columna
+    for metric in metrics_to_normalize:
+        future[f"{metric}_norm"] = normalize_score(future[metric])
+    
+    print("   Normalización completada\n")
+    
+    # ==========================
+    # 6. Calcular scores intermedios
+    # ==========================
+    
+    print("6. Calculando scores intermedios...")
+    
+    # Stack Overflow Score (60% Trends + 40% Growth)
+    future["stackoverflow_score"] = (
+        future["users_count_norm"] * 0.60 +
+        future["growth_score_norm"] * 0.40
+    )
+    
+    # GitHub Score (100% Momentum)
+    future["github_score"] = future["momentum_score_norm"]
+    
+    # Research Score (50% Trends + 50% Growth)
+    future["research_score"] = (
+        future["research_score_norm"] * 0.50 +
+        future["research_growth_score_norm"] * 0.50
+    )
+    
+    print("   Scores calculados\n")
+    
+    # ==========================
+    # 7. Calcular Future Score (dinámico)
+    # ==========================
+    
+    print("7. Calculando Future Score...")
+    
+    future["future_score"] = future.apply(calculate_future_score, axis=1)
+    
+    print(f"   Future Score calculado\n")
+    
+    # ==========================
+    # 8. Asignar categorías consistentes
+    # ==========================
+    
+    print("8. Asignando categorías...")
+    
+    future["category"] = future["technology"].apply(get_category)
+    
+    print("   Categorías asignadas\n")
+    
+    # ==========================
+    # 9. Calcular cobertura (metadata)
+    # ==========================
+    
+    print("9. Calculando cobertura...")
+    
+    # Contar fuentes disponibles
+    future["source_count"] = (
+        future["stackoverflow_score"].notna().astype(int) +
+        future["github_score"].notna().astype(int) +
+        future["research_score"].notna().astype(int)
+    )
+    
+    # Mapear cobertura (0-100)
+    coverage_map = {
+        3: 100,
+        2: 75,
+        1: 50
+    }
+    future["coverage_score"] = future["source_count"].map(coverage_map)
+    
+    # Factor de cobertura (para ordenamiento, no modifica el score)
+    coverage_factor_map = {
+        3: 1.0,
+        2: 0.95,
+        1: 0.85
+    }
+    future["coverage_factor"] = future["source_count"].map(coverage_factor_map)
+    future["ranking_score"] = future["future_score"] * future["coverage_factor"]
+    
+    # Fuentes utilizadas
+    future["sources_used"] = future.apply(get_sources_used, axis=1)
+    
+    # Explicación del score
+    future["score_explanation"] = future.apply(get_score_explanation, axis=1)
+    
+    print(f"   Distribución de fuentes:")
+    for count in sorted(future["source_count"].unique()):
+        if not pd.isna(count):
+            n = (future["source_count"] == count).sum()
+            coverage = coverage_map.get(int(count), 0)
+            print(f"      {int(count)} fuente(s): {n} tecnologías (coverage: {coverage}%)")
+    print()
+    
+    # ==========================
+    # 10. Generar ranking
+    # ==========================
+    
+    print("10. Generando ranking...")
+    
+    # Ordenar por ranking_score (future_score * coverage_factor)
+    future = future.sort_values("ranking_score", ascending=False)
+    future["rank"] = range(1, len(future) + 1)
+    
+    print(f"   Ranking generado (ordenado por ranking_score)\n")
+    
+    # ==========================
+    # 11. Agregar metadata
+    # ==========================
+    
+    print("11. Agregando metadata...")
+    
+    future["computed_at"] = datetime.now()
+    future["version"] = VERSION
+    
+    print("   Metadata agregada\n")
+    
+    # ==========================
+    # 12. Seleccionar columnas finales
+    # ==========================
+    
+    final_columns = [
+        "rank",
+        "technology",
+        "category",
+        "future_score",
+        "ranking_score",
+        "stackoverflow_score",
+        "github_score",
+        "research_score",
+        "source_count",
+        "coverage_score",
+        "coverage_factor",
+        "sources_used",
+        "score_explanation",
+        "computed_at",
+        "version"
+    ]
+    
+    future_final = future[final_columns]
+    
+    print(f"   Columnas finales ({len(final_columns)}):")
+    for col in final_columns:
+        print(f"      - {col}")
+    print()
+    
+    # ==========================
+    # 13. Guardar en base de datos
+    # ==========================
+    
+    print(f"13. Guardando en {SCHEMA}.{TABLE_NAME}...")
+    
+    future_final.to_sql(
+        TABLE_NAME,
+        engine,
+        schema=SCHEMA,
+        if_exists="replace",
+        index=False
+    )
+    
+    print(f"   ✅ Tabla {SCHEMA}.{TABLE_NAME} creada exitosamente")
+    print(f"   Total de registros: {len(future_final)}")
+    
+    # Mostrar top 10
+    print("\n   Top 10 tecnologías:")
+    print(f"   {'Rank':<6} {'Technology':<20} {'Category':<12} {'Future':<10} {'Ranking':<10} {'Coverage':<10} {'Sources'}")
+    print("   " + "-" * 95)
+    for _, row in future_final.head(10).iterrows():
+        print(f"   {row['rank']:<6} {row['technology']:<20} {row['category']:<12} "
+              f"{row['future_score']:<10.1f} {row['ranking_score']:<10.1f} "
+              f"{row['coverage_score']:<10} {row['sources_used']}")
+    
+    print(f"\n✅ Future Skills Engine completado a las {datetime.now().strftime('%H:%M:%S')}")
+
+
+# ==========================
+# MAIN (para ejecución directa)
+# ==========================
+
+if __name__ == "__main__":
+    build_future_skills()

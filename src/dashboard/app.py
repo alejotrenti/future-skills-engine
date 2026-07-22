@@ -91,15 +91,15 @@ st.markdown("""
         letter-spacing: 0.3px;
     ">🐙 GitHub</span>
     <span style="
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.04);
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
         border-radius: 100px;
         padding: 6px 18px;
         font-size: 13px;
-        font-weight: 400;
-        color: rgba(255,255,255,0.3);
+        font-weight: 500;
+        color: #F5F7FB;
         letter-spacing: 0.3px;
-    ">📚 arXiv <span style="font-size: 10px; opacity: 0.5;">(Próximamente)</span></span>
+    ">📚 arXiv</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -272,9 +272,9 @@ with gh_col2:
     </a>
     """, unsafe_allow_html=True)
 
-# ============ ARXIV SECTION (Próximamente) ============
+# ============ ARXIV SECTION ============
 st.markdown("""
-<div style="margin-top: 48px; margin-bottom: 16px; opacity: 0.4;">
+<div style="margin-top: 20px; margin-bottom: 16px;">
     <div style="display: flex; align-items: center; gap: 12px;">
         <span style="font-size: 24px;">📚</span>
         <h3 style="margin: 0; color: #F5F7FB; font-weight: 600;">arXiv</h3>
@@ -284,7 +284,7 @@ st.markdown("""
             padding: 2px 14px;
             font-size: 12px;
             color: rgba(255,255,255,0.3);
-        ">Próximamente</span>
+        ">Biblioteca digital</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -293,23 +293,25 @@ arxiv_col1, arxiv_col2 = st.columns(2)
 
 with arxiv_col1:
     st.markdown("""
-    <div class="feature-card feature-card-disabled">
-        <div class="feature-icon">🔬</div>
-        <h3>Research Trends</h3>
-        <p>Tendencias de investigación a partir de papers académicos.</p>
-        <div class="feature-tag">Próximamente</div>
-    </div>
-    """, unsafe_allow_html=True)
+    <a href="/arxiv_research_trends" target="_self" style="text-decoration: none; color: inherit;">
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Research Trends</h3>
+            <p>Tendencias de investigación a partir de papers académicos.</p>
+            <div class="feature-tag">Tendencias</div>
+        </div>
+    </a>""", unsafe_allow_html=True)
 
 with arxiv_col2:
     st.markdown("""
-    <div class="feature-card feature-card-disabled">
-        <div class="feature-icon">🧠</div>
-        <h3>Emerging Topics</h3>
-        <p>Identificación temprana de tecnologías emergentes en investigación.</p>
-        <div class="feature-tag">Próximamente</div>
-    </div>
-    """, unsafe_allow_html=True)
+    <a href="/arxiv_research_growth" target="_self" style="text-decoration: none; color: inherit;">
+        <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>Research Growth</h3>
+            <p>Identificación temprana de tecnologías emergentes en investigación.</p>
+            <div class="feature-tag">%CRECIMIENTO</div>
+        </div>
+    </a>""", unsafe_allow_html=True)
 
 st.divider()
 
