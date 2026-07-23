@@ -39,6 +39,8 @@ RAW_ALIASES = {
     # ==========================
     # LENGUAJES
     # ==========================
+    "HTML": "html",
+    "CSS": "css",
     "HTML/CSS": "html",
     "JavaScript": "javascript",
     "TypeScript": "typescript",
@@ -46,6 +48,7 @@ RAW_ALIASES = {
     "Java": "java",
     "C#": "csharp",
     "C++": "cpp",
+    "C": "c",
     "Rust": "rust",
     "Go": "go",
     "Golang": "go",
@@ -70,6 +73,15 @@ RAW_ALIASES = {
     "Bash": "bash",
     "Shell": "shell",
     "Zsh": "zsh",
+    "Assembly": "assembly",
+    
+    # ==========================
+    # RUNTIMES
+    # ==========================
+    "Node.js": "nodejs",
+    "NodeJS": "nodejs",
+    "Deno": "deno",
+    "Bun": "bun",
     
     # ==========================
     # FRAMEWORKS
@@ -90,8 +102,6 @@ RAW_ALIASES = {
     "Gatsby": "gatsby",
     "Tailwind": "tailwind",
     "TailwindCSS": "tailwind",
-    "Node.js": "nodejs",
-    "NodeJS": "nodejs",
     "Django": "django",
     "Flask": "flask",
     "FastAPI": "fastapi",
@@ -105,6 +115,12 @@ RAW_ALIASES = {
     "Express": "express",
     "Express.js": "express",
     "NestJS": "nestjs",
+    "Astro": "astro",
+    "SolidJS": "solidjs",
+    "Remix": "remix",
+    "Nuxt": "nuxt",
+    "Axum": "axum",
+    "Blade": "blade",
     
     # ==========================
     # BASES DE DATOS
@@ -129,6 +145,10 @@ RAW_ALIASES = {
     "Redshift": "redshift",
     "BigQuery": "bigquery",
     "Snowflake": "snowflake",
+    "DuckDB": "duckdb",
+    "Polars": "polars",
+    "Pandas": "pandas",
+    "NumPy": "numpy",
     
     # ==========================
     # CLOUD Y DEVOPS
@@ -159,6 +179,11 @@ RAW_ALIASES = {
     "AWS Lambda": "lambda",
     "RDS": "rds",
     "Amazon RDS": "rds",
+    "Prometheus": "prometheus",
+    "Grafana": "grafana",
+    "Helm": "helm",
+    "Nginx": "nginx",
+    "Bicep": "bicep",
     
     # ==========================
     # ALIBABA
@@ -167,6 +192,26 @@ RAW_ALIASES = {
     "Alibaba Cloud Qwen": "alibaba_qwen",
     "Alibaba Cloud Qwen models": "alibaba_qwen",
     "Qwen": "alibaba_qwen",
+    
+    # ==========================
+    # AI MODELS
+    # ==========================
+    "Gemini": "gemini",
+    "Google Gemini": "gemini",
+    "GitHub Copilot": "github_copilot",
+    "Copilot": "github_copilot",
+    "Claude 3": "claude",
+    "Anthropic Claude": "claude",
+    "Claude": "claude",
+    "Mistral": "mistral",
+    "DeepSeek": "deepseek",
+    "DeepSeek R": "deepseek_reasoning",
+    "Amazon Titan": "amazon_titan",
+    "Amazon Titan models": "amazon_titan",
+    "OpenAI": "openai",
+    "OpenAI GPT": "openai_gpt",
+    "GPT": "gpt",
+    "Llama": "llama",
     
     # ==========================
     # AI/ML TECNOLOGÍAS
@@ -180,15 +225,7 @@ RAW_ALIASES = {
     "OpenCV": "opencv",
     "Hugging Face": "huggingface",
     "HuggingFace": "huggingface",
-    "Llama": "llama",
     "LangChain": "langchain",
-    "OpenAI": "openai",
-    "OpenAI GPT": "openai_gpt",
-    "GPT": "gpt",
-    "Claude": "claude",
-    "Anthropic Claude": "claude",
-    "DeepSeek": "deepseek",
-    "DeepSeek R": "deepseek_reasoning",
     
     # ==========================
     # BIG DATA
@@ -213,7 +250,7 @@ RAW_ALIASES = {
     "Web3": "web3",
     
     # ==========================
-    # OTROS
+    # ARQUITECTURA E INTEGRACIÓN
     # ==========================
     "Serverless": "serverless",
     "Microservices": "microservices",
@@ -223,9 +260,27 @@ RAW_ALIASES = {
     "REST API": "rest",
     "Edge Computing": "edge_computing",
     "Quantum Computing": "quantum_computing",
-    "Amazon Titan": "amazon_titan",
-    "Amazon Titan models": "amazon_titan",
+    
+    # ==========================
+    # RESEARCH AREAS
+    # ==========================
+    "Machine Learning": "machine_learning",
+    "Deep Learning": "deep_learning",
+    "NLP": "nlp",
+    "Computer Vision": "computer_vision",
+    "Reinforcement Learning": "reinforcement_learning",
+    "Generative AI": "generative_ai",
+    "LLM": "llm",
+    "RAG": "rag",
+    
+    # ==========================
+    # OTROS
+    # ==========================
     "Centreon": "centreon",
+    "ANTLR": "antlr",
+    "APT": "apt",
+    "Batch": "batch",
+    "BitBake": "bitbake",
 }
 
 
@@ -240,7 +295,7 @@ TECH_ALIASES = {
 
 
 # ==========================
-# CATEGORÍAS
+# CATEGORÍAS MEJORADAS
 # ==========================
 
 TECH_CATEGORIES = {
@@ -277,6 +332,13 @@ TECH_CATEGORIES = {
     "zsh": "language",
     "html": "language",
     "css": "language",
+    "htmlcss": "language",
+    "assembly": "language",
+    
+    # Runtimes
+    "nodejs": "runtime",
+    "deno": "runtime",
+    "bun": "runtime",
     
     # Frameworks
     "react": "framework",
@@ -287,7 +349,6 @@ TECH_CATEGORIES = {
     "nextjs": "framework",
     "gatsby": "framework",
     "tailwind": "framework",
-    "nodejs": "framework",
     "django": "framework",
     "flask": "framework",
     "fastapi": "framework",
@@ -299,6 +360,12 @@ TECH_CATEGORIES = {
     "rails": "framework",
     "express": "framework",
     "nestjs": "framework",
+    "astro": "framework",
+    "solidjs": "framework",
+    "remix": "framework",
+    "nuxt": "framework",
+    "axum": "framework",
+    "blade": "framework",
     
     # Databases
     "postgresql": "database",
@@ -317,25 +384,43 @@ TECH_CATEGORIES = {
     "redshift": "database",
     "bigquery": "database",
     "snowflake": "database",
+    "duckdb": "database",
     
-    # Cloud & DevOps
-    "docker": "devops",
-    "kubernetes": "devops",
+    # Data Engineering
+    "polars": "data_engineering",
+    "pandas": "data_engineering",
+    "numpy": "data_engineering",
+    "spark": "data_engineering",
+    "hadoop": "data_engineering",
+    "kafka": "data_engineering",
+    "airflow": "data_engineering",
+    "dbt": "data_engineering",
+    "databricks": "data_engineering",
+    
+    # Cloud
     "aws": "cloud",
     "azure": "cloud",
     "gcp": "cloud",
+    "alibaba_cloud": "cloud",
+    "s3": "cloud",
+    "ec2": "cloud",
+    "lambda": "cloud",
+    "rds": "cloud",
+    
+    # DevOps
+    "docker": "devops",
+    "kubernetes": "devops",
     "terraform": "devops",
     "ansible": "devops",
     "jenkins": "devops",
     "githubactions": "devops",
     "gitlabci": "devops",
     "circleci": "devops",
-    "s3": "cloud",
-    "ec2": "cloud",
-    "lambda": "cloud",
-    "rds": "cloud",
-    "alibaba_cloud": "cloud",
-    "alibaba_qwen": "ai_ml",
+    "prometheus": "devops",
+    "grafana": "devops",
+    "helm": "devops",
+    "nginx": "devops",
+    "bicep": "devops",
     
     # AI/ML Technologies
     "tensorflow": "ai_ml",
@@ -344,59 +429,99 @@ TECH_CATEGORIES = {
     "scikitlearn": "ai_ml",
     "opencv": "ai_ml",
     "huggingface": "ai_ml",
-    "llama": "ai_ml",
     "langchain": "ai_ml",
     "openai": "ai_ml",
+    "gpt": "ai_ml",
+    "openai_gpt": "ai_ml",
+    "claude": "ai_ml",
+    "deepseek": "ai_ml",
+    "deepseek_reasoning": "ai_ml",
+    "gemini": "ai_ml",
+    "github_copilot": "ai_ml",
+    "mistral": "ai_ml",
+    "llama": "ai_ml",
+    "alibaba_qwen": "ai_ml",
     
     # Research Areas
-    "machine_learning": "research_area",
-    "deep_learning": "research_area",
-    "nlp": "research_area",
-    "computer_vision": "research_area",
-    "reinforcement_learning": "research_area",
-    "generative_ai": "research_area",
-    "llm": "research_area",
-    "rag": "research_area",
-    "gpt": "research_area",
-    "openai_gpt": "research_area",
-    "claude": "research_area",
-    "deepseek": "research_area",
-    "deepseek_reasoning": "research_area",
-    "amazon_titan": "research_area",
-    
-    # Big Data
-    "spark": "data",
-    "hadoop": "data",
-    "kafka": "data",
-    "airflow": "data",
-    "dbt": "data",
-    "databricks": "data",
+    "machine_learning": "research",
+    "deep_learning": "research",
+    "nlp": "research",
+    "computer_vision": "research",
+    "reinforcement_learning": "research",
+    "generative_ai": "research",
+    "llm": "research",
+    "rag": "research",
+    "amazon_titan": "research",
     
     # Blockchain
-    "blockchain": "blockchain",
-    "ethereum": "blockchain",
-    "solidity": "blockchain",
-    "web3": "blockchain",
+    "blockchain": "emerging",
+    "ethereum": "emerging",
+    "solidity": "emerging",
+    "web3": "emerging",
+    "quantum_computing": "emerging",
     
-    # Other
-    "serverless": "infrastructure",
+    # Architecture & Integration
+    "serverless": "architecture",
     "microservices": "architecture",
+    "edge_computing": "architecture",
     "api": "integration",
     "graphql": "integration",
     "rest": "integration",
-    "edge_computing": "infrastructure",
-    "quantum_computing": "emerging",
+    
+    # Other
     "centreon": "monitoring",
-    "antlr": "tools",
-    "apt": "tools",
-    "assembly": "language",
-    "astro": "framework",
-    "axum": "framework",
-    "batch": "tools",
-    "bicep": "devops",
-    "bitbake": "tools",
-    "blade": "framework",
+    "antlr": "tooling",
+    "apt": "tooling",
+    "batch": "tooling",
+    "bitbake": "tooling",
 }
+
+
+# ==========================
+# TREND TYPES
+# ==========================
+
+def get_trend_type(tech: str, scores: dict) -> str:
+    """
+    Determina el tipo de tendencia de una tecnología.
+    
+    Args:
+        tech: Nombre de la tecnología normalizada
+        scores: Diccionario con scores (research_score, github_score, stackoverflow_score)
+    
+    Returns:
+        str: Tipo de tendencia
+    """
+    research = scores.get('research_score', 0)
+    github = scores.get('github_score', 0)
+    stackoverflow = scores.get('stackoverflow_score', 0)
+    
+    # Si todo está bajo, es "emerging"
+    if research < 30 and github < 30 and stackoverflow < 30:
+        return "Emerging"
+    
+    # Rising Star: Research alto, GitHub creciendo, SO todavía bajo
+    if research > 60 and github > 60 and stackoverflow < 40:
+        return "Rising Star"
+    
+    # Established Leader: Todo alto
+    if research > 70 and github > 70 and stackoverflow > 70:
+        return "Established Leader"
+    
+    # Research Driven: Research alto, adopción baja
+    if research > 70 and github < 50 and stackoverflow < 40:
+        return "Research Driven"
+    
+    # Community Driven: GitHub alto, SO medio
+    if github > 70 and stackoverflow > 40:
+        return "Community Driven"
+    
+    # Industry Standard: SO alto, GitHub medio
+    if stackoverflow > 70 and github > 50:
+        return "Industry Standard"
+    
+    # Default
+    return "Growing"
 
 
 # ==========================
@@ -427,12 +552,16 @@ def normalize_technology(name: str) -> str:
     if clean_name in TECH_ALIASES:
         return TECH_ALIASES[clean_name]
     
-    # Buscar coincidencias parciales
+    # Buscar coincidencias parciales (con protección contra falsos positivos)
     for alias, canonical in TECH_ALIASES.items():
-        if alias in clean_name or clean_name in alias:
-            # Evitar falsos positivos (ej: "aws" en "awslambda")
-            if len(alias) > 3 or alias == clean_name:
+        # Evitar falsos positivos con alias muy cortos (ej: "c" o "r")
+        if len(alias) <= 2:
+            if clean_name == alias:
                 return canonical
+            continue
+        
+        if alias in clean_name or clean_name in alias:
+            return canonical
     
     # Si no hay alias, devolver el nombre limpio
     return clean_name
@@ -440,4 +569,58 @@ def normalize_technology(name: str) -> str:
 
 def get_category(tech: str) -> str:
     """Retorna la categoría de una tecnología normalizada."""
-    return TECH_CATEGORIES.get(tech, "other")
+    category = TECH_CATEGORIES.get(tech, "uncategorized")
+    # Evitar "other" en dashboard
+    if category == "other":
+        return "uncategorized"
+    return category
+
+
+# ==========================
+# NOMBRES PARA DASHBOARD
+# ==========================
+
+METRIC_DISPLAY_NAMES = {
+    'future_score': 'Future Score',
+    'ranking_score': 'Final Ranking',  # Cambiamos para no mostrar ranking_score directamente
+    'stackoverflow_score': 'Developer Adoption',
+    'github_score': 'Open Source Momentum',
+    'research_score': 'arXiv Research Impact',
+    'coverage_score': 'Data Coverage',
+}
+
+def get_metric_display_name(metric_key: str) -> str:
+    """Retorna el nombre amigable para una métrica."""
+    return METRIC_DISPLAY_NAMES.get(metric_key, metric_key.replace('_', ' ').title())
+
+
+# ==========================
+# ICONOS PARA MÉTRICAS
+# ==========================
+
+METRIC_ICONS = {
+    'future_score': '🎯',
+    'ranking_score': '📊',
+    'stackoverflow_score': '💻',
+    'github_score': '🚀',
+    'research_score': '🔬',
+    'coverage_score': '📈',
+}
+
+def get_metric_icon(metric_key: str) -> str:
+    """Retorna el icono para una métrica."""
+    return METRIC_ICONS.get(metric_key, '📊')
+
+
+# ==========================
+# CONFIDENCE LEVEL
+# ==========================
+
+def get_confidence_level(coverage_score: float) -> str:
+    """Retorna el nivel de confianza basado en coverage_score."""
+    if coverage_score >= 80:
+        return "High"
+    elif coverage_score >= 50:
+        return "Medium"
+    else:
+        return "Low"

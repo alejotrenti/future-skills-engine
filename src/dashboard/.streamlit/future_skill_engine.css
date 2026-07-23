@@ -1,0 +1,1070 @@
+/* ==========================
+   FUTURE SKILLS ENGINE - CSS
+   ========================== */
+
+:root {
+    --fse-bg-primary: #0B0B0D;
+    --fse-bg-secondary: #14141A;
+    --fse-bg-card: #1A1A24;
+    --fse-bg-hover: #242433;
+    
+    --fse-text-primary: #F5F7FB;
+    --fse-text-secondary: #94A3B8;
+    --fse-text-muted: #64748B;
+    
+    --fse-gradient-start: #4361EE;
+    --fse-gradient-mid: #7209B7;
+    --fse-gradient-end: #3A0CA3;
+    
+    --fse-accent: #4CC9F0;
+    --fse-success: #06D6A0;
+    --fse-warning: #F72585;
+    --fse-danger: #EF476F;
+    
+    --fse-research-color: #4361EE;
+    --fse-github-color: #7209B7;
+    --fse-stackoverflow-color: #4CC9F0;
+}
+
+/* ==========================
+   BASE
+   ========================== */
+
+body {
+    background: var(--fse-bg-primary);
+    color: var(--fse-text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================
+   HERO
+   ========================== */
+
+.fse-hero {
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(108, 124, 255, 0.16), rgba(110, 231, 214, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(2, 8, 23, 0.18);
+    position: relative;
+    overflow: hidden;
+}
+
+.fse-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(108, 124, 255, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.fse-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.fse-hero h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--fse-text-primary) 0%, var(--fse-text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.fse-hero-subtitle {
+    font-size: 1.1rem;
+    color: rgba(245, 247, 251, 0.76);
+    margin: 0 0 1.25rem 0;
+    max-width: 780px;
+    line-height: 1.6;
+}
+
+.fse-hero-source {
+    color: var(--fse-accent);
+    font-weight: 500;
+}
+
+.fse-hero-meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.fse-hero-meta-item {
+    color: var(--fse-text-muted);
+    font-size: 0.875rem;
+}
+
+.fse-hero-meta-number {
+    color: var(--fse-text-primary);
+    font-weight: 600;
+}
+
+/* ==========================
+   METRIC CARDS
+   ========================== */
+
+.fse-metric-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    transition: transform 180ms ease, border-color 180ms ease;
+    box-shadow: 0 10px 22px rgba(2, 8, 23, 0.16);
+}
+
+.fse-metric-card:hover {
+    border-color: rgba(108, 124, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.fse-metric-icon {
+    font-size: 1.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(108, 124, 255, 0.14);
+}
+
+.fse-metric-body {
+    flex: 1;
+}
+
+.fse-metric-label {
+    color: rgba(245, 247, 251, 0.7);
+    font-size: 0.86rem;
+    margin: 0 0 0.25rem 0;
+}
+
+.fse-metric-value {
+    color: var(--fse-text-primary);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.1rem 0;
+}
+
+.fse-metric-subtitle {
+    color: var(--fse-text-muted);
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+/* ==========================
+   SECTION HEADER
+   ========================== */
+
+.fse-section-header {
+    margin: 2rem 0 1rem 0;
+}
+
+.fse-section-header h2 {
+    color: var(--fse-text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+}
+
+.fse-section-subtitle {
+    color: var(--fse-text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* ==========================
+   RANKING ITEMS
+   ========================== */
+
+.fse-rank-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.25rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.fse-rank-item:hover {
+    background: var(--fse-bg-card);
+}
+
+.fse-rank-number {
+    color: var(--fse-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-width: 2rem;
+}
+
+.fse-rank-name {
+    color: var(--fse-text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    min-width: 8rem;
+}
+
+.fse-rank-bar-container {
+    flex: 1;
+    height: 6px;
+    background: var(--fse-bg-card);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.fse-rank-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease-out;
+    background: linear-gradient(90deg, var(--fse-gradient-start), var(--fse-gradient-end));
+}
+
+.fse-rank-score {
+    color: var(--fse-text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-width: 3rem;
+    text-align: right;
+}
+
+.fse-rank-growth {
+    color: var(--fse-success);
+    font-size: 0.75rem;
+    font-weight: 500;
+    min-width: 3.5rem;
+    text-align: right;
+}
+
+/* ==========================
+   DISTRIBUTION
+   ========================== */
+
+.fse-dist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+}
+
+.fse-dist-label {
+    color: var(--fse-text-secondary);
+    font-size: 0.75rem;
+    min-width: 3.5rem;
+}
+
+.fse-dist-bar-container {
+    flex: 1;
+    height: 6px;
+    background: var(--fse-bg-card);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.fse-dist-bar {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--fse-gradient-start), var(--fse-gradient-end));
+    transition: width 1s ease-out;
+}
+
+.fse-dist-count {
+    color: var(--fse-text-muted);
+    font-size: 0.75rem;
+    min-width: 2rem;
+    text-align: right;
+}
+
+.fse-dist-note {
+    margin-top: 0.75rem;
+    color: var(--fse-text-muted);
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 0.5rem;
+    background: var(--fse-bg-card);
+    border-radius: 6px;
+}
+
+/* ==========================
+   DETAIL CARD
+   ========================== */
+
+.fse-detail-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.fse-detail-card:hover {
+    border-color: rgba(108, 124, 255, 0.2);
+}
+
+.fse-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.fse-detail-header h3 {
+    color: var(--fse-text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.fse-detail-header h4 {
+    color: var(--fse-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.fse-detail-badge {
+    background: rgba(108, 124, 255, 0.14);
+    color: #aeb7ff;
+    padding: 0.25rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(108, 124, 255, 0.2);
+}
+
+.fse-detail-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fse-detail-metric {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.fse-detail-metric-label {
+    color: var(--fse-text-secondary);
+    font-size: 0.75rem;
+    min-width: 4.5rem;
+}
+
+.fse-detail-metric-value {
+    color: var(--fse-text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+.fse-mini-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--fse-bg-card);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.fse-mini-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease-out;
+}
+
+/* ==========================
+   DETAIL STATS
+   ========================== */
+
+.fse-detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.fse-detail-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.fse-detail-stat-label {
+    color: var(--fse-text-muted);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.fse-detail-stat-value {
+    color: var(--fse-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* ==========================
+   INSIGHT TEXT
+   ========================== */
+
+.fse-insight-text {
+    color: var(--fse-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.fse-insight-text p {
+    margin: 0;
+}
+
+.fse-detail-sources {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.fse-source-badge {
+    background: var(--fse-bg-card);
+    color: var(--fse-text-secondary);
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================
+   COMPARISON
+   ========================== */
+
+.fse-comparison-container {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.025);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.07);
+}
+
+.fse-comparison-item {
+    flex: 1;
+}
+
+.fse-comparison-vs {
+    display: flex;
+    align-items: center;
+    color: var(--fse-text-muted);
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 0 0.5rem;
+}
+
+.fse-comparison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fse-comparison-name {
+    color: var(--fse-text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.fse-comparison-score {
+    color: var(--fse-accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.fse-comparison-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fse-comp-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.fse-comp-label {
+    color: var(--fse-text-muted);
+    font-size: 0.7rem;
+    min-width: 4rem;
+}
+
+.fse-comp-bar-container {
+    flex: 1;
+    height: 4px;
+    background: var(--fse-bg-card);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.fse-comp-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease-out;
+}
+
+.fse-comp-value {
+    color: var(--fse-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+/* ==========================
+   INSIGHTS CARDS
+   ========================== */
+
+.fse-insight-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--fse-accent);
+    background: rgba(67, 97, 238, 0.05);
+}
+
+.fse-insight-success {
+    border-left-color: var(--fse-success);
+    background: rgba(6, 214, 160, 0.05);
+}
+
+.fse-insight-warning {
+    border-left-color: var(--fse-warning);
+    background: rgba(247, 37, 133, 0.05);
+}
+
+.fse-insight-icon {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.fse-insight-text {
+    color: var(--fse-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* ==========================
+   ALGORITHM
+   ========================== */
+
+.fse-algorithm {
+    padding: 0.5rem 0;
+}
+
+.fse-algorithm-intro {
+    color: var(--fse-text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.fse-algorithm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.fse-algorithm-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--fse-bg-card);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fse-algorithm-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.fse-algorithm-content h4 {
+    color: var(--fse-text-primary);
+    margin: 0 0 0.25rem 0;
+    font-size: 0.95rem;
+}
+
+.fse-algorithm-content p {
+    color: var(--fse-text-secondary);
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.5;
+}
+
+.fse-algorithm-weight {
+    color: var(--fse-accent);
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.fse-algorithm-source {
+    color: var(--fse-text-muted);
+    font-size: 0.65rem;
+    margin-top: 0.25rem;
+}
+
+.fse-algorithm-formula {
+    background: var(--fse-bg-card);
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fse-formula-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.fse-formula-label {
+    color: var(--fse-text-primary);
+    font-weight: 600;
+}
+
+.fse-formula-text {
+    color: var(--fse-accent);
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+}
+
+.fse-formula-note {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.fse-formula-badge {
+    background: rgba(67, 97, 238, 0.1);
+    color: var(--fse-text-secondary);
+    padding: 0.15rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    border: 1px solid rgba(67, 97, 238, 0.15);
+}
+
+/* ==========================
+   BUTTONS
+   ========================== */
+
+.fse-button-secondary {
+    background: transparent;
+    color: var(--fse-accent);
+    border: 1px solid rgba(67, 97, 238, 0.3);
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fse-button-secondary:hover {
+    background: rgba(67, 97, 238, 0.1);
+    border-color: var(--fse-accent);
+}
+
+/* ==========================
+   RESPONSIVE
+   ========================== */
+
+@media (max-width: 1200px) {
+    .fse-algorithm-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .fse-comparison-container {
+        flex-direction: column;
+    }
+    
+    .fse-comparison-vs {
+        padding: 0.5rem 0;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .fse-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .fse-hero-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .fse-rank-item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .fse-rank-bar-container {
+        order: 3;
+        flex-basis: 100%;
+    }
+    
+    .fse-detail-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================
+   SKILL TRENDS PAGE - ISOLATED STYLES
+   ============================ */
+
+.skill-trends-page {
+    padding: 0.25rem 0 1rem 0;
+}
+
+.skill-trends-hero {
+    background: linear-gradient(135deg, rgba(108, 124, 255, 0.16), rgba(110, 231, 214, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 12px 30px rgba(2, 8, 23, 0.18);
+}
+
+.skill-trends-hero h1 {
+    font-size: 2.2rem;
+    margin: 0.4rem 0 0.35rem 0;
+    letter-spacing: -0.02em;
+}
+
+.skill-trends-hero p {
+    margin: 0;
+    color: rgba(245, 247, 251, 0.76);
+    line-height: 1.6;
+    max-width: 780px;
+}
+
+.skill-trends-badge {
+    display: inline-block;
+    background: rgba(108, 124, 255, 0.14);
+    color: #aeb7ff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    border: 1px solid rgba(108, 124, 255, 0.2);
+    margin-bottom: 0.5rem;
+}
+
+.skill-trends-metric-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    box-shadow: 0 10px 22px rgba(2, 8, 23, 0.16);
+    transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.skill-trends-metric-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(108, 124, 255, 0.25);
+}
+
+.skill-trends-metric-icon {
+    font-size: 1.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(108, 124, 255, 0.14);
+}
+
+.skill-trends-metric-body p {
+    margin: 0 0 0.2rem 0;
+    color: rgba(245, 247, 251, 0.7);
+    font-size: 0.86rem;
+}
+
+.skill-trends-metric-body h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #F5F7FB;
+}
+
+.skill-trends-panel {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.9rem;
+}
+
+.skill-trends-chart-panel {
+    padding: 0.6rem 0.8rem 0.2rem 0.8rem;
+    margin-bottom: 0.4rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+}
+
+.skill-trends-table-panel {
+    padding-top: 0.75rem;
+    padding-bottom: 0.85rem;
+}
+
+.skill-trends-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #F5F7FB;
+    margin-bottom: 0.15rem;
+}
+
+.skill-trends-section-subtitle {
+    font-size: 0.9rem;
+    color: rgba(245, 247, 251, 0.68);
+}
+
+div[data-testid="stPlotlyChart"] {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-top: none;
+    border-radius: 0 0 18px 18px;
+    padding: 0.25rem 0.4rem 0.6rem 0.4rem;
+}
+
+div[data-testid="stDataFrame"] {
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.07);
+    overflow: hidden;
+}
+
+/* ============================
+   INSIGHT CARD
+   ============================ */
+
+.insight-card {
+    background: linear-gradient(135deg, rgba(108, 124, 255, 0.08), rgba(125, 211, 252, 0.05));
+    border: 1px solid rgba(108, 124, 255, 0.15);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.insight-card-icon {
+    font-size: 2.5rem;
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    background: rgba(108, 124, 255, 0.12);
+    border-radius: 14px;
+    flex-shrink: 0;
+}
+
+.insight-card-content {
+    flex: 1;
+}
+
+.insight-card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #F5F7FB;
+    margin-bottom: 0.3rem;
+}
+
+.insight-card-metrics {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.insight-card-metric-label {
+    color: rgba(245, 247, 251, 0.5);
+    font-size: 0.8rem;
+}
+
+.insight-card-metric-value {
+    color: #F5F7FB;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.insight-card-text {
+    color: rgba(245, 247, 251, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.insight-card-text strong {
+    color: #7DD3FC;
+}
+
+.insight-card-text .highlight {
+    color: #F5F7FB;
+}
+
+/* ============================
+   SCROLLBAR
+   ============================ */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(108, 124, 255, 0.3);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(108, 124, 255, 0.5);
+}
+
+/* ======================================== */
+/* 🆕 NUEVOS ESTILOS PARA TREND TYPES Y CONFIDENCE */
+/* ======================================== */
+
+/* Badge de trend type */
+.fse-detail-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Confidence Level */
+.fse-confidence-level {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.fse-confidence-icon {
+    font-size: 3rem;
+    display: block;
+}
+
+.fse-confidence-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.25rem 0;
+}
+
+.fse-confidence-description {
+    font-size: 0.75rem;
+    color: var(--fse-text-muted);
+}
+
+/* Mejoras en el detalle de métricas */
+.fse-detail-metric-label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Tags de composición */
+.fse-detail-tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Source badges */
+.fse-source-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Insight types mejorados */
+.fse-insight-info {
+    border-left: 4px solid #2196F3;
+}
+
+.fse-insight-info .fse-insight-icon {
+    color: #2196F3;
+}
+
+/* ======================================== */
+/* 🆕 ESTILOS PARA FUENTES Y MEJORAS */
+/* ======================================== */
+
+/* Source items */
+.fse-source-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fse-source-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Mejoras en el ranking */
+.fse-rank-sources {
+    font-size: 0.7rem;
+    color: var(--fse-text-muted);
+    min-width: 45px;
+    text-align: right;
+}
+
+/* Badge de cobertura en ranking */
+.fse-rank-coverage {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--fse-text-muted);
+}
+
+/* No data messages */
+.fse-no-data {
+    font-size: 0.65rem;
+    color: var(--fse-text-muted);
+    font-style: italic;
+}

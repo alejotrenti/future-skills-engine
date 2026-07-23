@@ -22,7 +22,8 @@ from sqlalchemy import text
 from src.utils.database import engine
 from src.config.technology_mapping import (
     normalize_technology,
-    get_category
+    get_category,
+    get_trend_type
 )
 
 
@@ -39,22 +40,12 @@ TABLE_NAME = "future_skills"
 # FUNCIONES AUXILIARES
 # ==========================
 
-def normalize_score(series: pd.Series) -> pd.Series:
+def normalize_score(series):
     """
-    Normaliza una serie a escala 0-100 usando MinMax.
-    Maneja casos donde todos los valores son iguales.
+    Normalización por percentiles (0-100).
+    Más robusta frente a valores extremos.
     """
-    series_clean = series.dropna()
-    if len(series_clean) == 0:
-        return pd.Series([np.nan] * len(series), index=series.index)
-    
-    min_val = series_clean.min()
-    max_val = series_clean.max()
-    
-    if max_val == min_val:
-        return pd.Series([50.0] * len(series), index=series.index)
-    
-    return ((series - min_val) / (max_val - min_val)) * 100
+    return series.rank(pct=True) * 100
 
 
 def calculate_future_score(row: pd.Series) -> float:
@@ -80,10 +71,10 @@ def calculate_future_score(row: pd.Series) -> float:
     
     # Pesos base
     weights = {
-        "so": 0.35,
-        "gh": 0.35,
-        "research": 0.30
-    }
+        "so":0.30,
+        "gh":0.35,
+        "research":0.35
+    }   
     
     # Calcular pesos ajustados
     total_weight = 0
@@ -130,34 +121,71 @@ def get_sources_used(row: pd.Series) -> str:
 
 
 def get_score_explanation(row: pd.Series) -> str:
-    """Genera una explicación textual del score para el dashboard."""
-    parts = []
-    
-    # Stack Overflow
-    if not pd.isna(row.get("stackoverflow_score", np.nan)):
-        if row["stackoverflow_score"] > 50:
-            parts.append("strong developer adoption")
-        else:
-            parts.append("growing developer adoption")
-    
-    # GitHub
-    if not pd.isna(row.get("github_score", np.nan)):
-        if row["github_score"] > 50:
-            parts.append("active open source ecosystem")
-        else:
-            parts.append("emerging open source presence")
-    
-    # Research
-    if not pd.isna(row.get("research_score", np.nan)):
-        if row["research_score"] > 50:
-            parts.append("high research impact")
-        else:
-            parts.append("increasing research interest")
-    
-    if not parts:
+
+    so = row.get("stackoverflow_score", np.nan)
+    gh = row.get("github_score", np.nan)
+    research = row.get("research_score", np.nan)
+
+
+    available = [
+        x for x in [so, gh, research]
+        if not pd.isna(x)
+    ]
+
+
+    if not available:
         return "Limited data available"
-    
-    return " + ".join(parts)
+
+
+    # Caso 1: equilibrio fuerte
+    if (
+        not pd.isna(so)
+        and not pd.isna(gh)
+        and not pd.isna(research)
+        and so > 70
+        and gh > 70
+        and research > 70
+    ):
+        return (
+            "Excelente equilibrio entre adopción, "
+            "ecosistema open source e investigación."
+        )
+
+
+    # Caso 2: investigación domina
+    if (
+        not pd.isna(research)
+        and research > gh if not pd.isna(gh) else True
+        and research > so if not pd.isna(so) else True
+    ):
+        return (
+            "Alta actividad científica y creciente interés "
+            "en investigación."
+        )
+
+
+    # Caso 3: GitHub domina
+    if (
+        not pd.isna(gh)
+        and gh > so if not pd.isna(so) else True
+    ):
+        return (
+            "Ecosistema open source fuerte "
+            "con alta actividad de desarrollo."
+        )
+
+
+    # Caso 4: Stack Overflow domina
+    if (
+        not pd.isna(so)
+    ):
+        return (
+            "Alta adopción entre desarrolladores "
+            "y uso activo en la comunidad."
+        )
+
+
+    return "Tendencia emergente basada en datos disponibles."
 
 
 # ==========================
@@ -388,8 +416,8 @@ def build_future_skills() -> None:
     
     # Stack Overflow Score (60% Trends + 40% Growth)
     future["stackoverflow_score"] = (
-        future["users_count_norm"] * 0.60 +
-        future["growth_score_norm"] * 0.40
+        future["users_count_norm"] * 0.30 +
+        future["growth_score_norm"] * 0.70
     )
     
     # GitHub Score (100% Momentum)
@@ -397,11 +425,31 @@ def build_future_skills() -> None:
     
     # Research Score (50% Trends + 50% Growth)
     future["research_score"] = (
-        future["research_score_norm"] * 0.50 +
-        future["research_growth_score_norm"] * 0.50
+        future["research_score_norm"] * 0.30 +
+        future["research_growth_score_norm"] * 0.70
     )
     
     print("   Scores calculados\n")
+    
+    # ==========================
+    # Calcular tipo de tendencia
+    # ==========================
+
+    print("   Clasificando tendencias...")
+
+    future["trend_type"] = future.apply(
+        lambda row: get_trend_type(
+            row["technology"],
+            {
+                "stackoverflow_score": row["stackoverflow_score"],
+                "github_score": row["github_score"],
+                "research_score": row["research_score"]
+            }
+        ),
+        axis=1
+    )
+
+    print("   Trend types asignados\n")
     
     # ==========================
     # 7. Calcular Future Score (dinámico)
@@ -409,9 +457,10 @@ def build_future_skills() -> None:
     
     print("7. Calculando Future Score...")
     
-    future["future_score"] = future.apply(calculate_future_score, axis=1)
+    future["raw_future_score"] = future.apply(calculate_future_score, axis=1)
+
     
-    print(f"   Future Score calculado\n")
+    print(f"   Future Score raw calculado\n")
     
     # ==========================
     # 8. Asignar categorías consistentes
@@ -426,38 +475,57 @@ def build_future_skills() -> None:
     # ==========================
     # 9. Calcular cobertura (metadata)
     # ==========================
-    
+
     print("9. Calculando cobertura...")
-    
+
     # Contar fuentes disponibles
     future["source_count"] = (
         future["stackoverflow_score"].notna().astype(int) +
         future["github_score"].notna().astype(int) +
         future["research_score"].notna().astype(int)
     )
-    
-    # Mapear cobertura (0-100)
+
+    # Cobertura explicativa
     coverage_map = {
         3: 100,
         2: 75,
         1: 50
     }
-    future["coverage_score"] = future["source_count"].map(coverage_map)
-    
-    # Factor de cobertura (para ordenamiento, no modifica el score)
+
+    future["coverage_score"] = future["source_count"].map(
+        coverage_map
+    )
+
+    # Factor de confianza
     coverage_factor_map = {
-        3: 1.0,
-        2: 0.95,
-        1: 0.85
+        3: 1.00,
+        2: 0.85,
+        1: 0.65
     }
-    future["coverage_factor"] = future["source_count"].map(coverage_factor_map)
-    future["ranking_score"] = future["future_score"] * future["coverage_factor"]
-    
+
+    future["coverage_factor"] = future["source_count"].map(
+        coverage_factor_map
+    )
+
+
     # Fuentes utilizadas
-    future["sources_used"] = future.apply(get_sources_used, axis=1)
+    future["sources_used"] = future.apply(
+        get_sources_used,
+        axis=1
+    )
+
+    # Explicación
+    future["score_explanation"] = future.apply(
+        get_score_explanation,
+        axis=1
+    )
     
-    # Explicación del score
-    future["score_explanation"] = future.apply(get_score_explanation, axis=1)
+    
+    future["future_score"] = (
+        future["raw_future_score"] *
+        future["coverage_factor"]
+    )
+    
     
     print(f"   Distribución de fuentes:")
     for count in sorted(future["source_count"].unique()):
@@ -473,11 +541,16 @@ def build_future_skills() -> None:
     
     print("10. Generando ranking...")
     
-    # Ordenar por ranking_score (future_score * coverage_factor)
-    future = future.sort_values("ranking_score", ascending=False)
-    future["rank"] = range(1, len(future) + 1)
-    
-    print(f"   Ranking generado (ordenado por ranking_score)\n")
+    # Ordenar por Future Score
+    future = future.sort_values(
+        ["future_score", "source_count"],
+        ascending=[False, False]
+    ).reset_index(drop=True)
+
+    # Generar ranking
+    future["rank"] = future.index + 1
+        
+    print(f"   Ranking generado (ordenado por future_score)\n")
     
     # ==========================
     # 11. Agregar metadata
@@ -498,8 +571,8 @@ def build_future_skills() -> None:
         "rank",
         "technology",
         "category",
+        "trend_type",
         "future_score",
-        "ranking_score",
         "stackoverflow_score",
         "github_score",
         "research_score",
@@ -511,7 +584,7 @@ def build_future_skills() -> None:
         "computed_at",
         "version"
     ]
-    
+        
     future_final = future[final_columns]
     
     print(f"   Columnas finales ({len(final_columns)}):")
@@ -542,7 +615,7 @@ def build_future_skills() -> None:
     print("   " + "-" * 95)
     for _, row in future_final.head(10).iterrows():
         print(f"   {row['rank']:<6} {row['technology']:<20} {row['category']:<12} "
-              f"{row['future_score']:<10.1f} {row['ranking_score']:<10.1f} "
+              f"{row['future_score']:<10.1f}"
               f"{row['coverage_score']:<10} {row['sources_used']}")
     
     print(f"\n✅ Future Skills Engine completado a las {datetime.now().strftime('%H:%M:%S')}")

@@ -541,3 +541,210 @@ html, body {
 
     border: 1px solid rgba(245,158,11,.35);
 }
+/* ============================================================
+   🚀 DASHBOARD CTA - ESTILOS PREMIUM
+   ============================================================ */
+
+/* Contenedor principal del CTA */
+.dashboard-cta-wrapper {
+    margin: 32px 0 40px 0;
+    padding: 28px 36px;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.10) 0%, rgba(0, 0, 0, 0.60) 100%);
+    border: 1px solid rgba(108, 92, 231, 0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.dashboard-cta-wrapper:hover {
+    border-color: rgba(108, 92, 231, 0.40);
+    box-shadow: 0 12px 48px rgba(108, 92, 231, 0.15);
+}
+
+/* Badge superior */
+.dashboard-cta-badge {
+    display: inline-block;
+    background: rgba(108, 92, 231, 0.20);
+    border: 1px solid rgba(108, 92, 231, 0.30);
+    border-radius: 100px;
+    padding: 4px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #A78BFA;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+/* Título */
+.dashboard-cta-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #F5F7FB;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+/* Descripción */
+.dashboard-cta-description {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 16px 0;
+    line-height: 1.6;
+    max-width: 520px;
+}
+
+/* Chips */
+.dashboard-cta-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.dashboard-cta-chip {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.70);
+    transition: all 0.3s ease;
+}
+
+.dashboard-cta-chip:hover {
+    background: rgba(108, 92, 231, 0.15);
+    border-color: rgba(108, 92, 231, 0.25);
+    color: #fff;
+}
+
+/* Botón principal */
+.dashboard-cta-button {
+    background: linear-gradient(135deg, #6C5CE7 0%, #5B4BD5 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.dashboard-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108, 92, 231, 0.50);
+    color: #FFFFFF;
+}
+
+.dashboard-cta-button:active {
+    transform: translateY(0px);
+}
+
+/* Resumen visual (grid de métricas) */
+.dashboard-cta-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+    background: rgba(0, 0, 0, 0.30);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 20px 28px;
+    min-width: 200px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.dashboard-cta-summary:hover {
+    background: rgba(0, 0, 0, 0.40);
+    border-color: rgba(108, 92, 231, 0.15);
+}
+
+.dashboard-cta-summary-item {
+    text-align: center;
+}
+
+.dashboard-cta-summary-number {
+    font-size: 22px;
+    font-weight: 700;
+    color: #F5F7FB;
+}
+
+.dashboard-cta-summary-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.40);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .dashboard-cta-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 24px;
+    }
+    
+    .dashboard-cta-description {
+        max-width: 100%;
+    }
+    
+    .dashboard-cta-summary {
+        grid-template-columns: repeat(4, 1fr);
+        min-width: unset;
+        padding: 16px 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-cta-wrapper {
+        padding: 20px 16px;
+        margin: 20px 0 30px 0;
+    }
+    
+    .dashboard-cta-title {
+        font-size: 22px;
+    }
+    
+    .dashboard-cta-description {
+        font-size: 14px;
+    }
+    
+    .dashboard-cta-summary {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 16px;
+        padding: 14px 16px;
+    }
+    
+    .dashboard-cta-summary-number {
+        font-size: 18px;
+    }
+    
+    .dashboard-cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+    }
+    
+    .dashboard-cta-chips {
+        gap: 6px;
+    }
+    
+    .dashboard-cta-chip {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+}

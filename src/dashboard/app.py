@@ -58,7 +58,7 @@ st.markdown("""
     </p>
     <div class="hero-cta">
         <button class="cta-primary">
-            <a href="#fuentes" style="text-decoration: none; color: #FFF;">Explorar fuentes →</a>
+            <a href="#analisis-disponibles" style="text-decoration: none; color: #FFF;">Explorar fuentes →</a>
         </button>
         <button class="cta-secondary">
             <a href="#arquitectura" style="text-decoration: none; color: #FFF;">Ver arquitectura</a>
@@ -176,7 +176,45 @@ with col5:
 
 
 st.divider()
+st.markdown(
+    """<div class="dashboard-cta-wrapper">
+    <div style="flex: 1; min-width: 280px;">
+        <div class="dashboard-cta-badge">⭐ PRODUCTO PRINCIPAL</div>
+        <h2 class="dashboard-cta-title">Future Skills Engine Dashboard</h2>
+        <p class="dashboard-cta-description">
+            Explora el ranking unificado de tecnologías, compara habilidades y descubre el Future Score generado a partir de Stack Overflow, GitHub y arXiv.
+        </p>
+        <div class="dashboard-cta-chips">
+            <span class="dashboard-cta-chip">🏆 Future Score</span>
+            <span class="dashboard-cta-chip">⚖️ Comparación de tecnologías</span>
+            <span class="dashboard-cta-chip">📊 Ranking global</span>
+        </div>
+        <a href="/future_skill_engine" target="_self" style="text-decoration: none;">
+            <button class="dashboard-cta-button">Abrir Dashboard →</button>
+        </a>
+    </div>
+    <div class="dashboard-cta-summary">
+        <div class="dashboard-cta-summary-item">
+            <div class="dashboard-cta-summary-number">215</div>
+            <div class="dashboard-cta-summary-label">Tecnologías</div>
+        </div>
+        <div class="dashboard-cta-summary-item">
+            <div class="dashboard-cta-summary-number">3</div>
+            <div class="dashboard-cta-summary-label">Fuentes integradas</div>
+        </div>
+        <div class="dashboard-cta-summary-item">
+            <div class="dashboard-cta-summary-number">✓</div>
+            <div class="dashboard-cta-summary-label">Ranking unificado</div>
+        </div>
+        <div class="dashboard-cta-summary-item">
+            <div class="dashboard-cta-summary-number">📅</div>
+            <div class="dashboard-cta-summary-label">Actualización diaria</div>
+        </div>
+    </div>
+</div>""", unsafe_allow_html=True
+)
 
+st.divider()
 
 # ============ FEATURES GRID ============
 st.markdown("""
@@ -381,7 +419,7 @@ with col_right:
                 <p>Actividad real, ecosistemas y comunidades open source</p>
             </div>
         </div>
-        <div class="vision-item" style="opacity: 0.4;">
+        <div class="vision-item">
             <div class="vision-icon">📚</div>
             <div>
                 <h4>arXiv</h4>
