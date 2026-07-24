@@ -14,3 +14,9 @@ postgres_data/
 .vscode/
 
 data/raw/
+
+# Database dumps
+*.sql
+
+# Streamlit secrets
+.streamlit/secrets.toml

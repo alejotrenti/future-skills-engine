@@ -193,3 +193,39 @@ CREATE TABLE IF NOT EXISTS gold.research_growth (
 
 CREATE INDEX idx_growth_rank ON gold.research_growth(rank);
 CREATE INDEX idx_growth_score ON gold.research_growth(growth_score DESC);
+
+CREATE TABLE IF NOT EXISTS gold.future_skills (
+
+    id SERIAL PRIMARY KEY,
+
+    rank BIGINT,
+
+    technology TEXT NOT NULL,
+
+    category TEXT,
+
+    trend_type TEXT,
+
+    future_score DOUBLE PRECISION,
+
+    stackoverflow_score DOUBLE PRECISION,
+
+    github_score DOUBLE PRECISION,
+
+    research_score DOUBLE PRECISION,
+
+    source_count BIGINT,
+
+    coverage_score BIGINT,
+
+    coverage_factor DOUBLE PRECISION,
+
+    sources_used TEXT,
+
+    score_explanation TEXT,
+
+    computed_at TIMESTAMP,
+
+    version TEXT
+
+);

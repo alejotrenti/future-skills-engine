@@ -1,377 +1,186 @@
-# 🚀 Future Skills Engine
+# Future Skills Engine
 
-## Motor de análisis y predicción de tendencias tecnológicas
-
-
-Future Skills Engine es una plataforma de inteligencia tecnológica diseñada para identificar las tecnologías con mayor potencial de crecimiento y relevancia futura.
-
-El sistema integra múltiples fuentes de datos para obtener una visión completa del ecosistema tecnológico:
-
-* **Stack Overflow Survey:** analiza adopción, popularidad y evolución entre desarrolladores.
-* **GitHub API:** mide actividad real del ecosistema open source, comunidades y momentum de tecnologías.
-* **arXiv:** incorpora señales de investigación científica para detectar tecnologías emergentes.
-
-La arquitectura sigue un enfoque **Medallion (Bronze → Silver → Gold)**, donde los datos son extraídos, limpiados y transformados hasta generar métricas de alto nivel.
-
-A partir de las tablas Gold, el Future Skills Engine construye una capa de inteligencia que combina diferentes dimensiones:
-
-* **Adoption:** qué tan utilizada está actualmente una tecnología.
-* **Growth:** qué tan rápido está creciendo su presencia.
-* **Ecosystem:** qué tan activo y desarrollado está su ecosistema.
-* **Research:** qué nivel de innovación e investigación existe alrededor de ella.
-
-Estas señales se normalizan y combinan para generar un **Future Score**, un ranking que busca responder:
-
-> "¿Qué tecnologías tienen mayor probabilidad de ser relevantes en el futuro?"
-
-El objetivo final es pasar de un análisis descriptivo del presente a un sistema capaz de detectar tendencias emergentes y ayudar en la toma de decisiones sobre aprendizaje, inversión tecnológica y desarrollo de habilidades futuras.
+**Future Skills Engine** es una plataforma de inteligencia tecnológica que integra múltiples fuentes de información para analizar el estado actual del ecosistema tecnológico y generar un ranking de tecnologías mediante un modelo de scoring llamado **Future Score**.
 
 ---
 
-Básicamente la evolución del proyecto es:
+## Descripción general
+
+La plataforma procesa señales provenientes de tres fuentes distintas:
+
+- **Stack Overflow Developer Survey** — Adopción, uso y preferencias de tecnologías entre desarrolladores
+- **GitHub REST API** — Actividad open source, métricas de repositorios y participación comunitaria
+- **arXiv API** — Producción científica e interés académico en temas tecnológicos
+
+Todos los datos fluyen a través de una arquitectura **Medallion (Bronze → Silver → Gold)** orquestada por Apache Airflow, con los resultados visualizados en un dashboard desarrollado con Streamlit. El objetivo es transformar datos heterogéneos en indicadores comparables que faciliten el análisis de tecnologías emergentes.
+
+---
+
+## Objetivo
+
+Proporcionar información clara y basada en datos sobre las tendencias tecnológicas, combinando adopción en la industria, actividad comunitaria e investigación académica en un sistema de ranking unificado.
+
+El **Future Score** ayuda a responder preguntas como:
+
+- ¿Qué tecnologías están ganando terreno?
+- ¿Dónde hay mayor momentum en open source?
+- ¿Qué áreas de investigación están emergiendo?
+
+---
+
+## Características principales
+
+| Característica | Descripción |
+|----------------|-------------|
+| **Integración multi-fuente** | Combina datos de encuestas, repositorios e investigación académica |
+| **Pipeline ETL automatizado** | Orquestación del flujo de datos mediante Apache Airflow |
+| **Arquitectura Medallion** | Bronze (crudo) → Silver (limpio) → Gold (analítico) |
+| **Dashboard interactivo** |Aplicación Streamlit compuesta por una página principal y siete vistas analíticas. |
+| **Ranking de tecnologías** | Cálculo del Future Score a partir de señales combinadas |
+
+---
+
+## Arquitectura resumida
 
 ```
-Datos históricos
-       ↓
-Análisis del presente
-       ↓
-Extracción de señales
-       ↓
-Modelo de scoring
-       ↓
-Predicción de tecnologías futuras
-```
-
----
-
-# 🎯 Objetivo del proyecto
-
-El crecimiento constante de nuevas tecnologías hace difícil identificar qué herramientas tendrán mayor impacto en los próximos años.
-
-Future Skills Engine busca responder preguntas como:
-
-* ¿Qué tecnologías están creciendo más rápido?
-* ¿Qué lenguajes y frameworks tienen mayor adopción?
-* ¿Qué herramientas están aumentando su actividad en GitHub?
-* ¿Qué áreas tecnológicas están recibiendo más investigación científica?
-* ¿Cuáles podrían ser las skills más relevantes del futuro?
-
----
-
-# 🏗️ Arquitectura del sistema
-
-```text
-                    Fuentes de datos
-
-        Stack Overflow Survey
-                 |
-                 |
-          GitHub API
-                 |
-                 |
-            arXiv API
-                 |
-                 ▼
-
-              Bronze Layer
-          Datos originales/raw
-
-                 |
-                 ▼
-
-              Silver Layer
-       Limpieza + transformación
-        + normalización de datos
-
-                 |
-                 ▼
-
-               Gold Layer
-        Métricas y datasets analíticos
-
-                 |
-                 ▼
-
-          Streamlit Dashboard
-        Visualización e insights
+Fuentes de datos
+     ↓
+ Capa Bronze (ingesta cruda)
+     ↓
+ Capa Silver (limpieza y validación)
+     ↓
+  Capa Gold (tablas analíticas)
+     ↓
+ Future Skills Engine (scoring)
+     ↓
+   Dashboard (Streamlit)
 ```
 
 ---
 
-# 🛠️ Stack tecnológico
+## Stack tecnológico
 
-| Área                 | Tecnología              |
-| -------------------- | ----------------------- |
-| Lenguaje             | Python                  |
-| Procesamiento        | Pandas                  |
-| Base de datos        | PostgreSQL              |
-| Orquestación         | Apache Airflow          |
-| Contenedores         | Docker / Docker Compose |
-| Dashboard            | Streamlit               |
-| APIs                 | GitHub API, arXiv API   |
-| SQL                  | SQLAlchemy              |
-| Control de versiones | Git / GitHub            |
+| Categoría | Herramientas |
+|-----------|--------------|
+| Lenguaje | Python 3.10+ |
+| Procesamiento de datos | Pandas, SQLAlchemy |
+| Base de datos | PostgreSQL |
+| Orquestación | Apache Airflow |
+| Contenerización | Docker, Docker Compose |
+| Visualización | Streamlit |
+| APIs | GitHub REST API, arXiv API |
 
 ---
 
-# 📂 Estructura del proyecto
+## Resultados
 
-```text
+Actualmente el proyecto integra información proveniente de tres fuentes de datos y genera:
+
+- 215 tecnologías analizadas.
+- 7 tablas analíticas en la capa Gold.
+- Future Score para cada tecnología.
+- Dashboard interactivo con 8 vistas (Home + 7 páginas analíticas).
+
+---
+
+## Estructura del proyecto
+
+```
 Future-Skills-Engine/
-
 ├── airflow/
-│   └── dags/
-│
 ├── data/
-│   └── raw/
-│
-├── src/
-│   │
-│   ├── extract/
-│   │   ├── stackoverflow/
-│   │   ├── github/
-│   │   └── arxiv/
-│   │
-│   ├── load/
-│   │
-│   ├── transform/
-│   │   ├── bronze/
-│   │   ├── silver/
-│   │   └── gold/
-│   │
-│   └── dashboard/
-│       ├── app.py
-│       ├── db.py
-│       └── pages/
-│
+├── notebooks/
 ├── sql/
-│   └── init.sql
-│
+├── src/
+│   ├── config/
+│   ├── dashboard/
+│   ├── extract/
+│   ├── transform/
+│   └── utils/
 ├── docker-compose.yml
-│
 └── README.md
 ```
 
 ---
 
-# 🥉 Bronze Layer — Datos originales
+## Ejecución local
 
-La capa Bronze almacena la información tal como llega desde las fuentes externas.
+### Requisitos previos
 
-Fuentes actuales:
+- Docker y Docker Compose
+- Token de acceso personal de GitHub (para acceso a la API)
 
-## Stack Overflow Developer Survey
+### Instalación
 
-Contiene información sobre:
-
-* Lenguajes utilizados
-* Frameworks
-* Bases de datos
-* Cloud providers
-* Herramientas de desarrollo
-* Experiencia profesional
-
-Tabla:
-
-```sql
-bronze.stackoverflow_raw
-```
-
----
-
-## GitHub API
-
-Recolecta información sobre actividad del ecosistema open source:
-
-* Repositorios
-* Lenguajes utilizados
-* Estrellas
-* Forks
-* Actividad reciente
-* Tendencias de proyectos
-
----
-
-## arXiv API
-
-Incorpora información del ámbito científico:
-
-* Papers publicados
-* Categorías de investigación
-* Frecuencia de publicación
-* Áreas tecnológicas emergentes
-
----
-
-# 🥈 Silver Layer — Datos procesados
-
-La capa Silver transforma los datos originales en estructuras limpias listas para análisis.
-
-Procesos realizados:
-
-* Limpieza de datos
-* Normalización
-* Eliminación de duplicados
-* Conversión de formatos
-* Separación de entidades
-* Clasificación de tecnologías
-
-Ejemplo de tablas:
-
-```sql
-silver.respondents
-
-silver.skills
-
-silver.github_repositories
-
-silver.research_papers
-```
-
----
-
-# 🥇 Gold Layer — Métricas analíticas
-
-La capa Gold contiene información preparada para consumo del dashboard.
-
-Ejemplos:
-
-## Skill Trends
-
-Ranking de tecnologías basado en adopción actual.
-
-Métricas:
-
-* Tecnología
-* Categoría
-* Cantidad de usuarios
-* Ranking
-
----
-
-## Skill Growth
-
-Modelo de crecimiento de habilidades combinando diferentes señales:
-
-* Adopción de desarrolladores
-* Actividad en GitHub
-* Producción científica
-* Evolución temporal
-
----
-
-# 📊 Dashboard
-
-El dashboard desarrollado con Streamlit permite explorar las tendencias generadas por el pipeline.
-
-Funcionalidades:
-
-* 📈 Ranking de tecnologías
-* 🔥 Skills en crecimiento
-* 🔎 Exploración por categorías
-* 📊 Métricas generales
-* 📉 Evolución temporal
-
-El dashboard consume únicamente tablas Gold, manteniendo una separación correcta entre procesamiento y visualización.
-
----
-
-# ⚙️ Pipeline de datos
-
-La ejecución completa sigue el flujo:
-
-```text
-Extracción desde APIs / CSV
-            |
-            ▼
-Carga Bronze
-            |
-            ▼
-Transformaciones Silver
-            |
-            ▼
-Modelado Gold
-            |
-            ▼
-Dashboard Analytics
-```
-
-La ejecución está automatizada mediante DAGs de Apache Airflow.
-
----
-
-# 🚀 Ejecución local
-
-Clonar repositorio:
+1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/usuario/Future-Skills-Engine.git
+git clone https://github.com/alejotrenti/future-skills-engine
+cd future-skills-engine
 ```
 
-Ingresar al proyecto:
+2. Configurar variables de entorno
 
 ```bash
-cd Future-Skills-Engine
+cp .env
 ```
 
-Levantar servicios:
+Edita el archivo `.env` con tu token de GitHub y credenciales de base de datos.
+
+3. Iniciar los servicios
 
 ```bash
-docker compose up --build
+docker-compose up -d
 ```
 
-Servicios disponibles:
+4. Acceder a los servicios
 
-| Servicio            | URL                   |
-| ------------------- | --------------------- |
-| Airflow             | http://localhost:8080 |
-| Streamlit Dashboard | http://localhost:8501 |
+| Servicio | URL |
+|----------|-----|
+| Airflow UI | http://localhost:8080 |
+| Dashboard Streamlit | http://localhost:8501 |
 
----
+5. Ejecutar el pipeline
 
-# 📚 Fuentes de datos
+Ejecutar los DAGs respetando el orden de las capas:
 
-* Stack Overflow Developer Survey
-* GitHub REST API
-* arXiv API
-
----
-
-# 🧠 Conceptos aplicados
-
-Este proyecto demuestra experiencia práctica en:
-
-* Data Engineering
-* ETL / ELT pipelines
-* Arquitectura Medallion
-* Data Warehousing
-* Orquestación con Airflow
-* Integración con APIs
-* Modelado dimensional
-* SQL avanzado
-* Visualización de datos
-* Contenedores Docker
+```bash
+docker-compose exec airflow airflow dags trigger bronze_github_dag
+docker-compose exec airflow airflow dags trigger bronze_stackoverflow_dag
+docker-compose exec airflow airflow dags trigger bronze_arxiv_dag
+docker-compose exec airflow airflow dags trigger silver_github_dag
+docker-compose exec airflow airflow dags trigger silver_stackoverflow_dag
+docker-compose exec airflow airflow dags trigger silver_arxiv_dag
+docker-compose exec airflow airflow dags trigger gold_layer_builder_dag
+```
 
 ---
 
-# 🔮 Próximas mejoras
+## Roadmap
 
-* Modelo Machine Learning para forecasting de skills
-* Predicción de tecnologías emergentes
-* Incorporación de datos de ofertas laborales
-* Deploy en cloud
-* Sistema de scoring de tecnologías
-* API propia para consultas
-* CI/CD automático
-
----
-
-# 👨‍💻 Autor
-
-**Alejo Treni**
-
-Proyecto personal enfocado en Data Engineering, Data Science y análisis de tendencias tecnológicas.
+- [ ] Agregar nuevas fuentes de datos (Twitter/X, Hacker News, ofertas de trabajo)
+- [ ] Implementar monitoreo de calidad de datos y alertas
+- [ ] Añadir capacidad de backfill histórico
+- [ ] Optimizar el modelo de scoring con retroalimentación de usuarios
+- [ ] Ampliar el dashboard con filtros personalizados y opciones de exportación
+- [ ] Agregar pipeline CI/CD para pruebas y despliegue
 
 ---
 
-⭐ Si este proyecto te resulta interesante, ¡dejá una estrella!
+## Documentación
+
+La documentación detallada está disponible en el directorio `docs/`:
+
+- [Visión general de la arquitectura](docs/arquitectura.md)
+- [Detalles del pipeline](docs/pipeline.md)
+- [Metodología del Future Score](docs/future-score.md)
+- [Guía del dashboard](docs/dashboard.md)
+
+---
+
+## Autor
+
+**Tu Nombre**
+
+- GitHub: [@alejotrenti](https://github.com/alejotrenti)
+- Correo: aletrenti@outlook.com
